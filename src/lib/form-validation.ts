@@ -10,7 +10,9 @@ export interface FormValues {
   level: string;
   field: string;
   country: string;
+  intake: string;
   ielts: string;
+  budget: string;
   message: string;
   consent: boolean;
 }
@@ -277,10 +279,26 @@ export function validateCountry(country: string): string | null {
   return null;
 }
 
+export function validateIntake(intake: string): string | null {
+  const clean = (intake || "").trim();
+  if (!clean || clean === "") {
+    return "Please select your target intake.";
+  }
+  return null;
+}
+
 export function validateEnglishProficiency(ielts: string): string | null {
   const clean = (ielts || "").trim();
   if (!clean || clean === "") {
     return "Please select your English proficiency status.";
+  }
+  return null;
+}
+
+export function validateBudget(budget: string): string | null {
+  const clean = (budget || "").trim();
+  if (!clean || clean === "") {
+    return "Please select your estimated annual tuition budget.";
   }
   return null;
 }
@@ -337,8 +355,14 @@ export function validateForm(values: FormValues): FormErrors {
   const countryErr = validateCountry(values.country);
   if (countryErr) errors.country = countryErr;
 
+  const intakeErr = validateIntake(values.intake);
+  if (intakeErr) errors.intake = intakeErr;
+
   const ieltsErr = validateEnglishProficiency(values.ielts);
   if (ieltsErr) errors.ielts = ieltsErr;
+
+  const budgetErr = validateBudget(values.budget);
+  if (budgetErr) errors.budget = budgetErr;
 
   const msgErr = validateMessage(values.message);
   if (msgErr) errors.message = msgErr;
@@ -364,7 +388,9 @@ export function calculateReadinessScore(values: FormValues): {
     validateStudyLevel(values.level) === null,
     validateFieldOfStudy(values.field) === null,
     validateCountry(values.country) === null,
+    validateIntake(values.intake) === null,
     validateEnglishProficiency(values.ielts) === null,
+    validateBudget(values.budget) === null,
     values.consent === true,
   ];
 

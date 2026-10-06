@@ -5,6 +5,10 @@ import { testimonials } from "@/lib/site";
 import { SectionHeading } from "@/components/site";
 
 export function TestimonialsSection() {
+  if (!testimonials || testimonials.length === 0) {
+    return null;
+  }
+
   const [selectedCountry, setSelectedCountry] = useState<string>("all");
 
   const countryFilterOptions = [

@@ -44,10 +44,13 @@ export const Route = createFileRoute("/services")({
           </div>
         ))}
       </section>
-      <p className="container-x text-sm text-muted-foreground">
-        We do not guarantee admission, visas or scholarships. Decisions rest with institutions and
-        authorities.
-      </p>
+      <div className="container-x">
+        <div className="rounded-2xl border border-border/80 bg-muted/30 p-5 text-xs text-muted-foreground leading-relaxed">
+          <p>
+            <strong className="font-semibold text-primary">Service Disclaimer:</strong> EuroBridge Education provides educational counseling, admissions advisory, and visa documentation guidance. We do not guarantee admission, visa issuance, or scholarships. University admission decisions are made solely by academic institutions, and visa outcomes are determined exclusively by sovereign immigration authorities.
+          </p>
+        </div>
+      </div>
       <ConsultCTA />
     </>
   ),

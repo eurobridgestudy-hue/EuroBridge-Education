@@ -14,7 +14,6 @@ import {
 import { DestinationCard } from "@/components/DestinationCard";
 import { ServiceIcon } from "@/components/ServiceIcon";
 import { Explorer } from "@/components/Explorer";
-import { TestimonialsSection } from "@/components/TestimonialsSection";
 
 export const Route = createFileRoute("/")({
   head: () => ({
@@ -207,7 +206,7 @@ function Index() {
           title="Guidance at every stage"
           intro="Choose the support you need — or let us guide you end to end."
         />
-        <div className="mt-8 sm:mt-12 grid gap-4 sm:gap-5 sm:grid-cols-2 lg:grid-cols-5">
+        <div className="mt-8 sm:mt-12 grid gap-4 sm:gap-5 sm:grid-cols-2 lg:grid-cols-4">
           {services.map((s) => (
             <div
               key={s.title}
@@ -230,7 +229,11 @@ function Index() {
       {/* HOW IT WORKS */}
       <section className="bg-sky py-14 sm:py-20 md:py-24">
         <div className="container-x">
-          <SectionHeading eyebrow="How it works" title="A simple, five-step journey" />
+          <SectionHeading
+            eyebrow="How it works"
+            title="From Consultation to Pre-Departure"
+            intro="A structured, transparent 5-step roadmap to start your European university journey with confidence."
+          />
           <ol className="mt-10 sm:mt-14 grid gap-6 sm:gap-8 md:grid-cols-5">
             {steps.map((s, i) => (
               <li key={s.title} className="relative">
@@ -292,9 +295,9 @@ function Index() {
               desc: "Malta, Romania, Bulgaria, Slovenia, Slovakia, Lithuania, Serbia & Latvia",
             },
             {
-              stat: "50+",
-              label: "Partner Institutions",
-              desc: "Recognized state universities and accredited colleges",
+              stat: "1-on-1",
+              label: "Direct Student Advisory",
+              desc: "Tailored course selection matching your academic profile and budget",
             },
             {
               stat: "100%",
@@ -303,8 +306,8 @@ function Index() {
             },
             {
               stat: "A–Z",
-              label: "Visa & SOP Guidance",
-              desc: "Step-by-step document preparation and interview prep",
+              label: "Visa & SOP Support",
+              desc: "Step-by-step document preparation, interview prep, and pre-departure checklist",
             },
           ].map((m, i) => (
             <div
@@ -326,9 +329,6 @@ function Index() {
           ))}
         </div>
       </section>
-
-      {/* STUDENT TESTIMONIALS */}
-      <TestimonialsSection />
 
       <ConsultCTA />
 

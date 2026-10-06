@@ -9,6 +9,8 @@ import {
   Home,
   Map,
   Luggage,
+  FileText,
+  ShieldCheck,
   type LucideIcon,
 } from "lucide-react";
 
@@ -23,6 +25,8 @@ const icons: Record<string, LucideIcon> = {
   Home,
   Map,
   Luggage,
+  FileText,
+  ShieldCheck,
 };
 
 export function ServiceIcon({ name, className }: { name: string; className?: string }) {

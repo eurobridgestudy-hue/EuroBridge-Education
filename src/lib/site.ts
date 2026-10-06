@@ -33,76 +33,66 @@ export function track(event: string, data: Record<string, unknown> = {}) {
 export const services = [
   {
     icon: "Compass",
-    title: "Course & University Selection",
-    text: "Understand your options and shortlist courses and institutions that fit your background and goals.",
+    title: "University Selection",
+    text: "Personalized shortlisting of accredited European universities and English-taught programmes aligned with your academic background and budget.",
   },
   {
     icon: "GraduationCap",
-    title: "Admission Guidance",
-    text: "Step-by-step guidance through the university application process and its requirements.",
-  },
-  {
-    icon: "FileEdit",
-    title: "Application Assistance",
-    text: "Help organising application details so your submission is complete and clear.",
+    title: "Application Support",
+    text: "End-to-end guidance through university application portals, eligibility verification, entry criteria, and official admissions correspondence.",
   },
   {
     icon: "FolderCheck",
-    title: "Documentation Guidance",
-    text: "Understand which documents are typically needed for applications and visas, and how to prepare them.",
+    title: "Document Guidance",
+    text: "Complete transcript evaluations, apostille authentication advisory, and certified translation requirements specific to each European country.",
   },
   {
-    icon: "Stamp",
+    icon: "FileText",
+    title: "SOP & CV Support",
+    text: "Professional structuring and review of your Statement of Purpose (SOP), academic CV, and recommendation letters to meet European university standards.",
+  },
+  {
+    icon: "ShieldCheck",
     title: "Visa Guidance",
-    text: "Guidance on the study visa process and the documentation generally involved.",
+    text: "Comprehensive study visa checklist, financial documentation verification, bank statement guidelines, health insurance, and embassy filing.",
   },
   {
     icon: "MessagesSquare",
-    title: "Visa Interview Preparation",
-    text: "Structured preparation sessions to help you approach a potential visa interview with confidence.",
-  },
-  {
-    icon: "Languages",
-    title: "IELTS / Language Guidance",
-    text: "Clarity on language requirements, which vary by institution and country.",
+    title: "Interview Preparation",
+    text: "Structured mock interview sessions and confidence coaching for both university admissions panels and embassy visa interview appointments.",
   },
   {
     icon: "Home",
-    title: "Accommodation Guidance",
-    text: "Guidance on exploring accommodation options where applicable.",
-  },
-  {
-    icon: "Map",
-    title: "Travel Guidance",
-    text: "Practical pointers for planning your journey to Europe.",
+    title: "Accommodation Support",
+    text: "Practical guidance on securing university dormitories, accredited student residences, and private shared student rentals near campus.",
   },
   {
     icon: "Luggage",
-    title: "Pre-Departure Guidance",
-    text: "Prepare for the transition — what to expect and what to organise before you leave.",
+    title: "Pre-Departure Support",
+    text: "Pre-departure checklist, flight guidance, foreign exchange, packing essentials, and orientation on cultural transition and student life in Europe.",
   },
 ] as const;
 
 export const steps = [
   {
-    title: "Initial Consultation",
-    text: "We understand your education background, goals and preferred destination.",
+    title: "Consultation",
+    text: "Free 1-on-1 profile evaluation to assess your academic history, career objectives, preferred destinations, and financial budget.",
   },
   {
-    title: "Course & Destination Guidance",
-    text: "We explore suitable study pathways based on your profile and available options.",
+    title: "University Selection",
+    text: "Shortlisting accredited European universities and English-taught degree programmes with realistic admission feasibility.",
   },
   {
-    title: "Application Preparation",
-    text: "We guide you through the required application information and documentation.",
+    title: "Application",
+    text: "Full application preparation, including document packaging, SOP & CV structuring, and submission before official deadlines.",
   },
   {
     title: "Visa Guidance",
-    text: "We provide guidance on the study visa process and required documentation.",
+    text: "Step-by-step visa dossier preparation, financial proof compliance, embassy documentation, and mock interview practice.",
   },
   {
-    title: "Pre-Departure Guidance",
-    text: "We help you prepare for the next stage of your journey.",
+    title: "Pre-Departure",
+    text: "Briefing on student accommodation, travel arrangements, health insurance, forex cards, and arrival orientation in Europe.",
   },
 ];
 
@@ -208,14 +198,45 @@ export const faqs = [
   },
 ];
 
-export const studyLevels = ["Bachelor's", "Master's", "Foundation / Pathway", "Not sure yet"];
+export const studyLevels = [
+  "Bachelor's Degree",
+  "Master's Degree",
+  "Diploma / Pathway",
+  "Doctorate / PhD",
+  "Not sure yet",
+];
+
 export const interests = [
+  "Computer Science & IT",
   "Business & Management",
   "Engineering & Technology",
-  "Computer Science & IT",
   "Health & Life Sciences",
   "Hospitality & Tourism",
+  "Economics & Finance",
   "Arts & Humanities",
+  "Not sure yet",
+];
+
+export const intakes = [
+  "Autumn / Winter 2026 (Aug–Nov 2026)",
+  "Spring 2027 (Jan–Mar 2027)",
+  "Autumn 2027",
+  "Flexible / Need Advice",
+];
+
+export const tuitionBudgets = [
+  "Under €3,000 / ₹2.7 Lakhs per year",
+  "€3,000 – €5,000 / ₹2.7L – ₹4.5L per year",
+  "€5,000 – €8,000 / ₹4.5L – ₹7.2L per year",
+  "€8,000+ / ₹7.2 Lakhs+ per year",
+  "Flexible / Need Advice",
+];
+
+export const englishLevels = [
+  "Have IELTS / PTE / TOEFL Score",
+  "Studied in English (Medium of Instruction - MOI)",
+  "Planning to take English Test",
+  "Looking for Universities Without IELTS",
   "Not sure yet",
 ];
 
@@ -230,77 +251,4 @@ export interface Testimonial {
   quote: string;
 }
 
-export const testimonials: Testimonial[] = [
-  {
-    name: "Arjun Sharma",
-    from: "India",
-    fromFlag: "🇮🇳",
-    to: "Serbia",
-    toFlag: "🇷🇸",
-    countrySlug: "serbia",
-    quote:
-      "EuroBridge Education guided me throughout my admission and visa process. The team was always available when I needed help. A great experience overall!",
-  },
-  {
-    name: "Karanveer Singh",
-    from: "India",
-    fromFlag: "🇮🇳",
-    to: "Malta",
-    toFlag: "🇲🇹",
-    countrySlug: "malta",
-    course: "Business",
-    quote:
-      "From choosing my course to completing my visa process, EuroBridge supported me at every step. I’m now studying Business in Malta and really happy with my journey.",
-  },
-  {
-    name: "Simran Kaur",
-    from: "India",
-    fromFlag: "🇮🇳",
-    to: "Lithuania",
-    toFlag: "🇱🇹",
-    countrySlug: "lithuania",
-    quote:
-      "The team explained everything clearly and helped me prepare my documents properly. Their guidance made my study-abroad process much easier.",
-  },
-  {
-    name: "Rahul Kumar",
-    from: "India",
-    fromFlag: "🇮🇳",
-    to: "Romania",
-    toFlag: "🇷🇴",
-    countrySlug: "romania",
-    quote:
-      "EuroBridge helped me understand my university options and guided me through the admission process. Their support made the whole journey much more comfortable.",
-  },
-  {
-    name: "Jaspreet Singh",
-    from: "India",
-    fromFlag: "🇮🇳",
-    to: "Latvia",
-    toFlag: "🇱🇻",
-    countrySlug: "latvia",
-    quote:
-      "I received helpful guidance from the initial counselling until my visa application. The team was responsive and professional throughout the process.",
-  },
-  {
-    name: "Priya Verma",
-    from: "India",
-    fromFlag: "🇮🇳",
-    to: "Slovakia",
-    toFlag: "🇸🇰",
-    countrySlug: "slovakia",
-    quote:
-      "Very helpful and supportive team. They explained the admission and visa steps clearly and kept me updated throughout my application.",
-  },
-  {
-    name: "Mandeep Singh",
-    from: "India",
-    fromFlag: "🇮🇳",
-    to: "Malta",
-    toFlag: "🇲🇹",
-    countrySlug: "malta",
-    course: "BA Business Studies",
-    quote:
-      "EuroBridge Education made my journey to study in Malta simple and stress-free. From choosing the right course to admission and visa guidance, their team supported me at every step. I’m now happily pursuing my BA in Business Studies in Malta and would definitely recommend EuroBridge Education to other students!",
-  },
-];
+export const testimonials: Testimonial[] = [];

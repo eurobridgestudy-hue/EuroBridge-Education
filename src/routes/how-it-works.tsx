@@ -6,11 +6,11 @@ import hero from "@/assets/slovakia.jpg";
 export const Route = createFileRoute("/how-it-works")({
   head: () => ({
     meta: [
-      { title: "How It Works — Study in Europe Process | EuroBridge Education" },
+      { title: "How It Works — 5-Step Process | EuroBridge Education" },
       {
         name: "description",
         content:
-          "Our five-step guidance process: consultation, course and destination guidance, application preparation, visa guidance and pre-departure.",
+          "Our five-step guidance process: Consultation → University Selection → Application → Visa Guidance → Pre-Departure.",
       },
       { property: "og:title", content: "How It Works | EuroBridge Education" },
       { property: "og:description", content: "A clear five-step journey to studying in Europe." },
@@ -22,8 +22,8 @@ export const Route = createFileRoute("/how-it-works")({
     <>
       <PageHero
         eyebrow="How it works"
-        title="A clear, five-step journey"
-        intro="Structured guidance so you always know what comes next."
+        title="From Consultation to Pre-Departure"
+        intro="A structured, transparent five-step journey to help you plan, apply, and transition to European university life."
         image={hero}
         imageAlt="Bratislava, Slovakia"
       />
@@ -39,10 +39,11 @@ export const Route = createFileRoute("/how-it-works")({
             </li>
           ))}
         </ol>
-        <p className="mx-auto mt-12 max-w-3xl text-sm text-muted-foreground">
-          No step guarantees an outcome. Admission and visa decisions are made by the relevant
-          institutions and authorities.
-        </p>
+        <div className="mx-auto mt-12 max-w-3xl rounded-2xl border border-border/80 bg-muted/30 p-5 text-xs text-muted-foreground leading-relaxed">
+          <p>
+            <strong className="font-semibold text-primary">Official Notice:</strong> EuroBridge Education provides counseling and document preparation assistance. University admission decisions are made solely by academic institutions, and study visa decisions rest exclusively with sovereign national immigration authorities; outcomes cannot be guaranteed.
+          </p>
+        </div>
       </section>
       <ConsultCTA />
     </>

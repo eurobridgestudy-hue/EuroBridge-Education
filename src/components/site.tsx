@@ -36,6 +36,9 @@ import {
   telUrl,
   studyLevels,
   interests,
+  intakes,
+  tuitionBudgets,
+  englishLevels,
 } from "@/lib/site";
 import { destinations } from "@/lib/destinations";
 import { cn } from "@/lib/utils";
@@ -718,7 +721,9 @@ export function EnquiryForm({ defaultCountry = "" }: { defaultCountry?: string }
     level: "",
     field: "",
     country: defaultCountry || "",
+    intake: "",
     ielts: "",
+    budget: "",
     message: "",
     consent: false,
   });
@@ -734,6 +739,8 @@ export function EnquiryForm({ defaultCountry = "" }: { defaultCountry?: string }
     country: string;
     level: string;
     field: string;
+    intake?: string;
+    budget?: string;
   } | null>(null);
 
   // Real-time validation & readiness calculations
@@ -799,13 +806,17 @@ export function EnquiryForm({ defaultCountry = "" }: { defaultCountry?: string }
         level: values.level,
         field: values.field,
         country: values.country || "Not sure yet",
+        intake: values.intake,
         ielts: values.ielts,
+        budget: values.budget,
         message: values.message.trim(),
       });
 
       track("consultation_form_submit", {
         country: values.country,
         level: values.level,
+        intake: values.intake,
+        budget: values.budget,
         name: values.name,
       });
 
@@ -817,6 +828,8 @@ export function EnquiryForm({ defaultCountry = "" }: { defaultCountry?: string }
         country: values.country || "European Universities",
         level: values.level || "Degree Programme",
         field: values.field || "General Studies",
+        intake: values.intake,
+        budget: values.budget,
       });
 
       toast.success("Profile verified! Your consultation request has been submitted.");
@@ -841,7 +854,9 @@ export function EnquiryForm({ defaultCountry = "" }: { defaultCountry?: string }
       level: "",
       field: "",
       country: defaultCountry || "",
+      intake: "",
       ielts: "",
+      budget: "",
       message: "",
       consent: false,
     });
@@ -855,12 +870,12 @@ export function EnquiryForm({ defaultCountry = "" }: { defaultCountry?: string }
   // -----------------------------------------------------------------
   if (sentLead) {
     const waText = encodeURIComponent(
-      `Hello EuroBridge Team! I just submitted my study abroad consultation form.\n\n*Reference ID:* ${sentLead.refNo}\n*Student Name:* ${sentLead.name}\n*Target Destination:* ${sentLead.country}\n*Study Level & Field:* ${sentLead.level} - ${sentLead.field}\n*Phone:* ${sentLead.phone}\n\nPlease let me know the upcoming intakes and eligibility criteria.`
+      `Hello EuroBridge Team! I just submitted my study abroad consultation form.\n\n*Reference ID:* ${sentLead.refNo}\n*Student Name:* ${sentLead.name}\n*Target Destination:* ${sentLead.country}\n*Study Level & Field:* ${sentLead.level} - ${sentLead.field}\n*Target Intake:* ${sentLead.intake || "Upcoming Intake"}\n*Budget:* ${sentLead.budget || "Standard"}\n*Phone:* ${sentLead.phone}\n\nPlease let me know the upcoming intakes and eligibility criteria.`
     );
     const directWaUrl = `https://wa.me/918968867562?text=${waText}`;
 
     return (
-      <div className="relative overflow-hidden rounded-3xl border border-amber-500/30 bg-card/95 p-8 text-center shadow-2xl backdrop-blur-md md:p-12 animate-in fade-in zoom-in-95 duration-300">
+      <div className="relative overflow-hidden rounded-3xl border border-amber-500/30 bg-card/95 p-6 text-center shadow-2xl backdrop-blur-md md:p-12 animate-in fade-in zoom-in-95 duration-300">
         <div className="pointer-events-none absolute -right-20 -top-20 h-72 w-72 rounded-full bg-amber-500/10 blur-3xl animate-pulse" />
         <div className="pointer-events-none absolute -left-20 -bottom-20 h-72 w-72 rounded-full bg-emerald-500/10 blur-3xl" />
 
@@ -877,7 +892,7 @@ export function EnquiryForm({ defaultCountry = "" }: { defaultCountry?: string }
           Consultation Request Confirmed!
         </h3>
         <p className="mx-auto mt-2 max-w-lg text-sm text-muted-foreground">
-          Thank you, <strong className="text-foreground">{sentLead.name}</strong>. Your academic profile has been logged in our counselor queue. Our certified European education advisor will evaluate your university eligibility within 24 hours.
+          Thank you, <strong className="text-foreground">{sentLead.name}</strong>. Your academic profile has been logged in our counselor queue. Our European education advisor will evaluate your university eligibility within 24 hours.
         </p>
 
         {/* Profile Card Summary */}
@@ -894,6 +909,18 @@ export function EnquiryForm({ defaultCountry = "" }: { defaultCountry?: string }
             <span className="text-muted-foreground">Field of Study:</span>
             <span className="font-bold text-foreground">{sentLead.field}</span>
           </div>
+          {sentLead.intake && (
+            <div className="flex justify-between border-b border-border/60 pb-2">
+              <span className="text-muted-foreground">Target Intake:</span>
+              <span className="font-bold text-foreground">{sentLead.intake}</span>
+            </div>
+          )}
+          {sentLead.budget && (
+            <div className="flex justify-between border-b border-border/60 pb-2">
+              <span className="text-muted-foreground">Tuition Budget:</span>
+              <span className="font-bold text-foreground">{sentLead.budget}</span>
+            </div>
+          )}
           <div className="flex justify-between">
             <span className="text-muted-foreground">Counselor Contact Line:</span>
             <span className="font-bold text-primary">+91 89688 67562</span>
@@ -1238,10 +1265,37 @@ export function EnquiryForm({ defaultCountry = "" }: { defaultCountry?: string }
             onBlur={() => handleBlur("country")}
             className={selectBase}
           >
-            <option value="">Not sure yet</option>
+            <option value="">Select destination</option>
             {destinations.map((d) => (
               <option key={d.slug} value={d.name}>
-                {d.name}
+                {d.flag} {d.name}
+              </option>
+            ))}
+            <option value="Open to all European destinations">Open to suggestions / Any European destination</option>
+          </select>
+        </FormField>
+
+        {/* Target Intake */}
+        <FormField
+          label="Target Intake"
+          icon={Calendar}
+          req
+          isValid={isFieldValid("intake")}
+          error={getFieldError("intake")}
+          hint="Select your preferred start semester."
+        >
+          <select
+            name="intake"
+            required
+            value={values.intake}
+            onChange={(e) => handleChange("intake", e.target.value)}
+            onBlur={() => handleBlur("intake")}
+            className={selectBase}
+          >
+            <option value="">Select target intake</option>
+            {intakes.map((i) => (
+              <option key={i} value={i}>
+                {i}
               </option>
             ))}
           </select>
@@ -1263,13 +1317,38 @@ export function EnquiryForm({ defaultCountry = "" }: { defaultCountry?: string }
             onBlur={() => handleBlur("ielts")}
             className={selectBase}
           >
-            <option value="">Select English proficiency</option>
-            <option value="IELTS">IELTS</option>
-            <option value="TOEFL">TOEFL</option>
-            <option value="PTE Academic">PTE Academic</option>
-            <option value="Duolingo English Test">Duolingo English Test</option>
-            <option value="Medium of Instruction (MOI)">Medium of Instruction (MOI)</option>
-            <option value="Currently Preparing / Not Yet Taken">Currently Preparing / Not Yet Taken</option>
+            <option value="">Select English proficiency status</option>
+            {englishLevels.map((lvl) => (
+              <option key={lvl} value={lvl}>
+                {lvl}
+              </option>
+            ))}
+          </select>
+        </FormField>
+
+        {/* Estimated Annual Tuition Budget */}
+        <FormField
+          label="Estimated Annual Tuition Budget"
+          icon={Sparkles}
+          req
+          isValid={isFieldValid("budget")}
+          error={getFieldError("budget")}
+          hint="Annual university fee range you are comfortable with."
+        >
+          <select
+            name="budget"
+            required
+            value={values.budget}
+            onChange={(e) => handleChange("budget", e.target.value)}
+            onBlur={() => handleBlur("budget")}
+            className={selectBase}
+          >
+            <option value="">Select estimated tuition budget</option>
+            {tuitionBudgets.map((b) => (
+              <option key={b} value={b}>
+                {b}
+              </option>
+            ))}
           </select>
         </FormField>
 
@@ -1350,9 +1429,16 @@ export function EnquiryForm({ defaultCountry = "" }: { defaultCountry?: string }
             </span>
             <span className="flex items-center gap-1.5">
               <CheckCircle2 className="h-4 w-4 text-amber-500" />
-              <span>Zero Application Fees</span>
+              <span>Free Profile Evaluation</span>
             </span>
           </div>
+        </div>
+
+        {/* Official Advisory Notice */}
+        <div className="md:col-span-2 rounded-2xl border border-border/70 bg-muted/40 p-4 text-xs text-muted-foreground leading-relaxed mt-1">
+          <p>
+            <strong className="font-semibold text-primary">Official Advisory Notice:</strong> Admission decisions are made solely and independently by the respective educational institutions, and study visa decisions are made solely by sovereign national immigration authorities. EuroBridge Education provides professional educational counseling, profile evaluation, and document guidance; outcomes cannot be guaranteed.
+          </p>
         </div>
       </form>
     </div>

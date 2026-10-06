@@ -119,7 +119,9 @@ describe("form-validation anti-random and real data verification", () => {
       level: "Bachelor's",
       field: "Business & Management",
       country: "Malta",
+      intake: "Autumn / Winter 2026 (Aug–Nov 2026)",
       ielts: "Medium of Instruction (MOI)",
+      budget: "€3,000 – €5,000 / ₹2.7L – ₹4.5L per year",
       message: "Looking for autumn 2026 intake.",
       consent: true,
     };
@@ -146,7 +148,9 @@ describe("form-validation anti-random and real data verification", () => {
         level: "",
         field: "",
         country: "",
+        intake: "",
         ielts: "",
+        budget: "",
         message: "aaaaaa",
         consent: false,
       };
@@ -159,6 +163,8 @@ describe("form-validation anti-random and real data verification", () => {
       expect(errors.qualification).toBeDefined();
       expect(errors.year).toBeDefined();
       expect(errors.level).toBeDefined();
+      expect(errors.intake).toBeDefined();
+      expect(errors.budget).toBeDefined();
       expect(errors.consent).toBeDefined();
     });
   });

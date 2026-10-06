@@ -12,7 +12,9 @@ export interface Lead {
   level?: string;
   field?: string;
   country?: string;
+  intake?: string;
   ielts?: string;
+  budget?: string;
   message?: string;
   status: LeadStatus;
   notes?: string;

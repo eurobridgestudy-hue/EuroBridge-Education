@@ -1,8 +1,8 @@
 import { createFileRoute, notFound, Link } from "@tanstack/react-router";
 import { useEffect } from "react";
-import { Check, Star, CheckCircle2 } from "lucide-react";
+import { Check, CheckCircle2 } from "lucide-react";
 import { getDestination, destinations } from "@/lib/destinations";
-import { steps, track, testimonials } from "@/lib/site";
+import { steps, track } from "@/lib/site";
 import {
   PageHero,
   SectionHeading,
@@ -154,45 +154,12 @@ function DestinationPage() {
             </div>
           )}
 
-          {/* Destination Specific Student Stories */}
-          {testimonials.filter((t) => t.countrySlug === d.slug).length > 0 && (
-            <div className="mt-12 rounded-3xl border border-border/80 bg-gradient-to-br from-card via-card to-muted/40 p-8 shadow-card relative overflow-hidden">
-              <div className="pointer-events-none absolute -right-16 -top-16 h-48 w-48 rounded-full bg-gold/10 blur-2xl" />
-              <div className="flex items-center justify-between border-b border-border/70 pb-3">
-                <h4 className="text-xl font-bold text-primary">Student Stories for {d.name}</h4>
-                <span className="rounded-full bg-emerald-500/10 px-3 py-1 text-xs font-semibold text-emerald-600 flex items-center gap-1">
-                  <CheckCircle2 className="h-3.5 w-3.5" /> Verified Feedback
-                </span>
-              </div>
-              <div className="mt-6 space-y-6">
-                {testimonials
-                  .filter((t) => t.countrySlug === d.slug)
-                  .map((t, idx) => (
-                    <div key={idx} className={idx > 0 ? "border-t border-border/60 pt-6" : ""}>
-                      <div className="flex items-center justify-between">
-                        <div className="flex text-amber-400">
-                          {[...Array(5)].map((_, i) => (
-                            <Star key={i} className="h-4 w-4 fill-amber-400 text-amber-400" />
-                          ))}
-                        </div>
-                        <span className="text-xs font-medium text-muted-foreground">
-                          {t.fromFlag} {t.from} → {t.toFlag} {t.to}
-                        </span>
-                      </div>
-                      <blockquote className="mt-3 text-base italic leading-relaxed text-foreground">
-                        “{t.quote}”
-                      </blockquote>
-                      <div className="mt-3 flex items-center justify-between text-xs">
-                        <span className="font-display font-bold text-primary text-sm">{t.name}</span>
-                        {t.course && (
-                          <span className="font-medium text-accent">{t.course}</span>
-                        )}
-                      </div>
-                    </div>
-                  ))}
-              </div>
-            </div>
-          )}
+          {/* Advisory Notice */}
+          <div className="mt-10 rounded-2xl border border-border/80 bg-muted/30 p-5 text-xs text-muted-foreground leading-relaxed">
+            <p>
+              <strong className="font-semibold text-primary">Academic & Visa Advisory:</strong> EuroBridge Education provides educational counseling, university application assistance, and document guidance for recognized universities across {d.name}. Admission decisions are made solely by the respective academic institutions, and study visa decisions are made solely by sovereign immigration authorities. Tuition fees and admission criteria are set directly by universities.
+            </p>
+          </div>
 
           <h3 className="mt-12 text-2xl font-semibold text-primary">Admission guidance</h3>
           <p className="mt-3 text-muted-foreground">

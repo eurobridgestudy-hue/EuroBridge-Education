@@ -1,6 +1,5 @@
 import { createFileRoute } from "@tanstack/react-router";
 import { PageHero, SectionHeading, ConsultCTA } from "@/components/site";
-import { TestimonialsSection } from "@/components/TestimonialsSection";
 import hero from "@/assets/hero.jpg";
 
 export const Route = createFileRoute("/about")({
@@ -66,7 +65,6 @@ export const Route = createFileRoute("/about")({
           Headquartered at Suffian Bagh Chowk in Ludhiana, Punjab, our advisory team brings dedicated expertise in European higher education admissions, credential evaluations, apostille processing, and study visa documentation. We focus on ethical, transparent representation for Indian students across eight European destinations.
         </p>
       </section>
-      <TestimonialsSection />
       <ConsultCTA />
     </>
   ),
