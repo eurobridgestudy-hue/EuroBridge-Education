@@ -136,7 +136,7 @@ function RootComponent() {
   return (
     <QueryClientProvider client={queryClient}>
       {!isAdmin && <Header />}
-      <main>
+      <main className="pb-20 lg:pb-0">
         <Outlet />
       </main>
       {!isAdmin && <Footer />}

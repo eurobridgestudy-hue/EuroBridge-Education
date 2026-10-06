@@ -4,7 +4,7 @@ import { interests, studyLevels } from "@/lib/site";
 import { DestinationCard } from "./DestinationCard";
 
 const sel =
-  "rounded-full border border-input bg-card px-4 py-2.5 text-sm text-foreground focus:outline-none focus:ring-2 focus:ring-ring";
+  "w-full sm:w-auto rounded-full border border-input bg-card px-4 py-2.5 text-sm text-foreground focus:outline-none focus:ring-2 focus:ring-ring";
 
 export function Explorer() {
   const [country, setCountry] = useState("");
@@ -22,7 +22,7 @@ export function Explorer() {
   );
   return (
     <div>
-      <div className="flex flex-wrap gap-3">
+      <div className="flex flex-col sm:flex-row sm:items-center flex-wrap gap-3">
         <select
           aria-label="Country"
           className={sel}

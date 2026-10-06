@@ -236,28 +236,60 @@ export function Header() {
           </ConsultButton>
         </div>
         <button
-          className="lg:hidden rounded-md p-2 text-primary"
+          className="lg:hidden rounded-xl border border-border/80 p-2 text-primary hover:bg-muted transition-colors"
           onClick={() => setOpen(!open)}
           aria-label="Toggle menu"
           aria-expanded={open}
         >
-          {open ? <X /> : <Menu />}
+          {open ? <X className="h-5 w-5" /> : <Menu className="h-5 w-5" />}
         </button>
       </div>
       {open && (
-        <div className="border-t border-border bg-background/98 backdrop-blur-lg lg:hidden">
+        <div className="border-t border-border bg-background/98 backdrop-blur-xl lg:hidden animate-in slide-in-from-top-2 duration-200">
           <nav className="container-x flex flex-col py-4">
             {nav.map((n) => (
               <Link
                 key={n.to}
                 to={n.to}
                 onClick={() => setOpen(false)}
-                className="border-b border-border/60 py-3 font-medium text-primary"
+                className="flex items-center justify-between border-b border-border/50 py-3 text-sm font-semibold text-primary transition-colors hover:text-accent"
               >
-                {n.label}
+                <span>{n.label}</span>
+                <span className="text-xs text-muted-foreground">›</span>
               </Link>
             ))}
-            <ConsultButton location="mobile_menu" className="mt-4">
+
+            <div className="mt-5 grid grid-cols-2 gap-2.5">
+              <a
+                href={whatsappUrl()}
+                target="_blank"
+                rel="noopener noreferrer"
+                onClick={() => {
+                  track("whatsapp_click", { location: "mobile_menu" });
+                  setOpen(false);
+                }}
+                className="flex items-center justify-center gap-1.5 rounded-xl border border-emerald-500/30 bg-emerald-500/10 py-2.5 text-xs font-bold text-emerald-600"
+              >
+                <MessageCircle className="h-4 w-4 text-emerald-500" />
+                <span>WhatsApp</span>
+              </a>
+              <a
+                href={telUrl()}
+                onClick={() => {
+                  track("phone_click", { location: "mobile_menu" });
+                  setOpen(false);
+                }}
+                className="flex items-center justify-center gap-1.5 rounded-xl border border-border bg-muted/60 py-2.5 text-xs font-bold text-primary"
+              >
+                <Phone className="h-4 w-4 text-gold" />
+                <span>Call Us</span>
+              </a>
+            </div>
+
+            <ConsultButton
+              location="mobile_menu"
+              className="mt-3 w-full justify-center text-sm py-3"
+            >
               Book Free Consultation
             </ConsultButton>
           </nav>
@@ -269,35 +301,42 @@ export function Header() {
 
 export function MobileBar() {
   return (
-    <div className="fixed inset-x-0 bottom-0 z-40 grid grid-cols-3 border-t border-border bg-background/95 text-xs font-semibold backdrop-blur lg:hidden">
-      <a
-        href={whatsappUrl()}
-        target="_blank"
-        rel="noopener noreferrer"
-        onClick={() => track("whatsapp_click", { location: "mobile_bar" })}
-        className="flex flex-col items-center gap-1 py-2.5 text-whatsapp"
-      >
-        <MessageCircle className="h-5 w-5" />
-        WhatsApp
-      </a>
-      <a
-        href={telUrl()}
-        onClick={() => track("phone_click", { location: "mobile_bar" })}
-        className="flex flex-col items-center gap-1 border-x border-border py-2.5 text-primary"
-      >
-        <Phone className="h-5 w-5" />
-        Call
-      </a>
-      <Link
-        to="/contact"
-        hash="enquiry"
-        onClick={() => track("cta_click", { cta: "consultation", location: "mobile_bar" })}
-        className="flex flex-col items-center gap-1 bg-primary py-2.5 text-primary-foreground"
-      >
-        <CalendarCheck className="h-5 w-5" />
-        Free Consultation
-      </Link>
-    </div>
+    <aside
+      aria-label="Quick mobile actions"
+      className="fixed inset-x-0 bottom-0 z-40 border-t border-white/10 bg-slate-950/95 px-3 py-2 pb-[max(0.6rem,env(safe-area-inset-bottom))] shadow-[0_-8px_32px_rgba(0,0,0,0.45)] backdrop-blur-xl lg:hidden"
+    >
+      <div className="mx-auto flex max-w-md items-center justify-between gap-2">
+        <a
+          href={whatsappUrl()}
+          target="_blank"
+          rel="noopener noreferrer"
+          onClick={() => track("whatsapp_click", { location: "mobile_bar" })}
+          className="flex flex-1 items-center justify-center gap-1.5 rounded-xl border border-emerald-500/30 bg-emerald-500/15 py-2.5 text-xs font-bold text-emerald-400 shadow-xs transition-all active:scale-95"
+        >
+          <MessageCircle className="h-4 w-4 shrink-0 text-emerald-400" />
+          <span>WhatsApp</span>
+        </a>
+
+        <a
+          href={telUrl()}
+          onClick={() => track("phone_click", { location: "mobile_bar" })}
+          className="flex flex-1 items-center justify-center gap-1.5 rounded-xl border border-white/15 bg-white/10 py-2.5 text-xs font-bold text-white shadow-xs transition-all active:scale-95"
+        >
+          <Phone className="h-4 w-4 shrink-0 text-amber-400" />
+          <span>Call Us</span>
+        </a>
+
+        <Link
+          to="/contact"
+          hash="enquiry"
+          onClick={() => track("cta_click", { cta: "consultation", location: "mobile_bar" })}
+          className="flex flex-[1.35] items-center justify-center gap-1.5 rounded-xl bg-gradient-to-r from-amber-500 via-amber-400 to-amber-500 py-2.5 px-2 text-xs font-extrabold text-slate-950 shadow-[0_4px_16px_rgba(212,175,55,0.4)] transition-all active:scale-95"
+        >
+          <CalendarCheck className="h-4 w-4 shrink-0" />
+          <span className="whitespace-nowrap">Free Consult</span>
+        </Link>
+      </div>
+    </aside>
   );
 }
 
@@ -489,7 +528,7 @@ export function SectionHeading({
       {eyebrow && <p className={cn("eyebrow", light && "text-gold")}>{eyebrow}</p>}
       <h2
         className={cn(
-          "mt-3 text-3xl font-semibold md:text-[2.6rem] md:leading-[1.1]",
+          "mt-2.5 sm:mt-3 text-2xl sm:text-3xl md:text-[2.6rem] font-bold leading-tight md:leading-[1.1] tracking-tight",
           light ? "text-ink-foreground" : "text-primary",
         )}
       >
@@ -498,8 +537,8 @@ export function SectionHeading({
       {intro && (
         <p
           className={cn(
-            "mt-4 text-base md:text-lg",
-            light ? "text-ink-foreground/75" : "text-muted-foreground",
+            "mt-2.5 sm:mt-4 text-sm sm:text-base md:text-lg leading-relaxed",
+            light ? "text-ink-foreground/80" : "text-muted-foreground",
           )}
         >
           {intro}
@@ -532,10 +571,14 @@ export function PageHero({
         />
       )}
       <div className="absolute inset-0 bg-hero-overlay" />
-      <div className="container-x relative py-20 md:py-28">
+      <div className="container-x relative py-12 sm:py-16 md:py-24">
         <p className="eyebrow text-gold">{eyebrow}</p>
-        <h1 className="mt-4 max-w-3xl text-4xl font-semibold md:text-6xl animate-rise">{title}</h1>
-        <p className="mt-5 max-w-xl text-lg text-ink-foreground/80">{intro}</p>
+        <h1 className="mt-3 sm:mt-4 max-w-3xl text-3xl sm:text-4xl md:text-6xl font-bold leading-tight animate-rise tracking-tight">
+          {title}
+        </h1>
+        <p className="mt-3 sm:mt-5 max-w-xl text-sm sm:text-base md:text-lg text-ink-foreground/85 leading-relaxed">
+          {intro}
+        </p>
       </div>
     </section>
   );
@@ -559,26 +602,26 @@ export function FaqList({ items = defaultFaqs }: { items?: { q: string; a: strin
 
 export function ConsultCTA() {
   return (
-    <section className="container-x py-20">
-      <div className="relative overflow-hidden rounded-3xl bg-gradient-to-br from-primary via-slate-900 to-primary px-8 py-14 text-primary-foreground shadow-2xl md:px-16 md:py-20 border border-gold/20">
+    <section className="container-x py-14 sm:py-20">
+      <div className="relative overflow-hidden rounded-3xl bg-gradient-to-br from-primary via-slate-900 to-primary px-5 py-8 sm:px-10 sm:py-14 md:px-16 md:py-20 text-primary-foreground shadow-2xl border border-gold/20">
         <div className="pointer-events-none absolute -right-24 -top-24 h-80 w-80 rounded-full bg-gold/15 blur-3xl" />
         <div className="pointer-events-none absolute -left-20 -bottom-20 h-80 w-80 rounded-full bg-accent/20 blur-3xl" />
         <div className="relative max-w-2xl">
-          <div className="inline-flex items-center gap-2 rounded-full border border-gold/40 bg-gold/10 px-3.5 py-1 text-xs font-semibold uppercase tracking-wider text-gold">
+          <div className="inline-flex items-center gap-1.5 rounded-full border border-gold/40 bg-gold/10 px-3 py-1 text-[11px] sm:text-xs font-semibold uppercase tracking-wider text-gold">
             ✨ Free Profile Assessment
           </div>
-          <h2 className="mt-4 text-3xl font-bold md:text-5xl md:leading-[1.12]">
+          <h2 className="mt-3 sm:mt-4 text-2xl sm:text-3xl md:text-5xl font-bold leading-tight md:leading-[1.12] tracking-tight">
             Ready to Explore Your European Study Options?
           </h2>
-          <p className="mt-5 text-lg text-primary-foreground/80 leading-relaxed">
+          <p className="mt-3 sm:mt-5 text-sm sm:text-base md:text-lg text-primary-foreground/85 leading-relaxed">
             Every student's profile and budget are unique. Speak with EuroBridge Education about
             course options, tuition fees, scholarship chances, and study visa requirements.
           </p>
-          <div className="mt-8 flex flex-wrap gap-4">
-            <ConsultButton location="cta_band" className="px-7 py-3.5 text-base" />
-            <WhatsAppButton location="cta_band" variant="ghostLight" className="px-7 py-3.5 text-base" />
+          <div className="mt-6 sm:mt-8 flex flex-col sm:flex-row gap-3 sm:gap-4 items-stretch sm:items-center">
+            <ConsultButton location="cta_band" className="w-full sm:w-auto px-6 py-3 sm:px-7 sm:py-3.5 text-sm sm:text-base justify-center" />
+            <WhatsAppButton location="cta_band" variant="ghostLight" className="w-full sm:w-auto px-6 py-3 sm:px-7 sm:py-3.5 text-sm sm:text-base justify-center" />
           </div>
-          <div className="mt-8 flex flex-wrap items-center gap-6 text-xs text-primary-foreground/70 border-t border-white/10 pt-6">
+          <div className="mt-6 sm:mt-8 flex flex-wrap items-center gap-x-5 gap-y-2 text-[11px] sm:text-xs text-primary-foreground/75 border-t border-white/10 pt-5 sm:pt-6">
             <span className="flex items-center gap-1.5"><span className="text-gold font-bold">✓</span> 100% Transparent Consultation</span>
             <span className="flex items-center gap-1.5"><span className="text-gold font-bold">✓</span> 8 European Destinations</span>
             <span className="flex items-center gap-1.5"><span className="text-gold font-bold">✓</span> Complete Visa & SOP Guidance</span>
@@ -894,7 +937,7 @@ export function EnquiryForm({ defaultCountry = "" }: { defaultCountry?: string }
   // ACTIVE FORM
   // -----------------------------------------------------------------
   return (
-    <div className="relative overflow-hidden rounded-3xl border border-border/90 bg-card/95 backdrop-blur-md p-6 shadow-xl md:p-10 transition-all">
+    <div className="relative overflow-hidden rounded-3xl border border-border/90 bg-card/95 backdrop-blur-md p-4 sm:p-6 md:p-10 shadow-xl transition-all">
       {/* Decorative ambient background */}
       <div className="pointer-events-none absolute right-0 top-0 -mr-24 -mt-24 h-80 w-80 rounded-full bg-amber-500/5 blur-3xl" />
       <div className="pointer-events-none absolute left-0 bottom-0 -ml-24 -mb-24 h-80 w-80 rounded-full bg-primary/5 blur-3xl" />

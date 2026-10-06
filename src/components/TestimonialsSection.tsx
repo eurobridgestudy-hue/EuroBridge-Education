@@ -23,7 +23,7 @@ export function TestimonialsSection() {
       : testimonials.filter((t) => t.countrySlug === selectedCountry);
 
   return (
-    <section className="bg-muted/40 py-24 border-y border-border/60">
+    <section className="bg-muted/40 py-14 sm:py-20 md:py-24 border-y border-border/60">
       <div className="container-x">
         <div className="flex flex-col md:flex-row md:items-end md:justify-between gap-6">
           <SectionHeading
@@ -39,12 +39,12 @@ export function TestimonialsSection() {
         </div>
 
         {/* Filter Pills */}
-        <div className="mt-8 flex flex-wrap gap-2">
+        <div className="mt-6 sm:mt-8 flex items-center gap-2 overflow-x-auto pb-2 scrollbar-none sm:flex-wrap">
           {countryFilterOptions.map((opt) => (
             <button
               key={opt.slug}
               onClick={() => setSelectedCountry(opt.slug)}
-              className={`rounded-full px-4 py-1.5 text-xs font-semibold transition-all ${
+              className={`shrink-0 whitespace-nowrap rounded-full px-3.5 sm:px-4 py-1.5 text-xs font-semibold transition-all ${
                 selectedCountry === opt.slug
                   ? "bg-primary text-primary-foreground shadow-xs"
                   : "border border-border/80 bg-card text-muted-foreground hover:bg-muted hover:text-primary"
@@ -56,11 +56,11 @@ export function TestimonialsSection() {
         </div>
 
         {/* Testimonials Cards Grid */}
-        <div className="mt-10 grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
+        <div className="mt-8 sm:mt-10 grid gap-5 sm:gap-6 sm:grid-cols-2 lg:grid-cols-3">
           {filteredTestimonials.map((t) => (
             <div
               key={t.name + t.countrySlug}
-              className="group relative flex flex-col justify-between overflow-hidden rounded-3xl border border-border/80 bg-card p-7 shadow-xs transition-all duration-200 hover:border-gold/50 hover:shadow-card hover:-translate-y-1"
+              className="group relative flex flex-col justify-between overflow-hidden rounded-3xl border border-border/80 bg-card p-5 sm:p-7 shadow-xs transition-all duration-200 hover:border-gold/50 hover:shadow-card hover:-translate-y-1"
             >
               <div className="absolute top-0 inset-x-0 h-1 bg-gradient-to-r from-accent/0 via-gold to-accent/0 opacity-0 group-hover:opacity-100 transition-opacity" />
               <div>
